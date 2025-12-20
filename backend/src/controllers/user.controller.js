@@ -75,4 +75,30 @@ const loginUser = async (req, res) => {
     }
 }
 
-export {registerUser, loginUser}
+const logoutUser = async (req, res) => {
+    try {
+        const email = req.body;
+
+        const user = await User.findOne(email);
+
+        if(!user) {
+            return res.status(404).json({
+                message: "User Not Found."
+            });
+        }
+
+        return res.status(200).json({
+            message: "Successfully logout.",
+            link: {
+                login: `http://localhost:${process.env.PORT}/api/v1/users`
+            }
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            message: "Internal Server Error.", error: error.message
+        });
+    }
+}
+
+export {registerUser, loginUser, logoutUser}
