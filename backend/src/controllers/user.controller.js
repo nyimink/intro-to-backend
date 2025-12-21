@@ -1,5 +1,21 @@
 import { User } from "../models/user.model.js";
 
+const getAllUsers = async (req, res) => {
+    try {
+
+        const users = await User.find();
+
+        return res.status(200).json({
+            message: "All users.",
+            users
+        })
+
+
+    } catch (error) {
+        return res.status(500).json({ message: "Internal Server Error", error: error.message });
+    }
+}
+
 const registerUser = async (req, res) => {
     try {
         
@@ -101,4 +117,4 @@ const logoutUser = async (req, res) => {
     }
 }
 
-export {registerUser, loginUser, logoutUser}
+export {getAllUsers, registerUser, loginUser, logoutUser}
