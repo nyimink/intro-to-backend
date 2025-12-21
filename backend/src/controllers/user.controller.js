@@ -77,9 +77,9 @@ const loginUser = async (req, res) => {
 
 const logoutUser = async (req, res) => {
     try {
-        const email = req.body;
+        const {email} = req.body;
 
-        const user = await User.findOne(email);
+        const user = await User.findOne({email});
 
         if(!user) {
             return res.status(404).json({
